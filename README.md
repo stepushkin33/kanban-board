@@ -43,7 +43,9 @@ Dev-сервер слушает [127.0.0.1:8080](http://127.0.0.1:8080). Для 
 
 ## Публикация
 
-Для GitHub Pages предусмотрен [workflow](.github/workflows/pages.yml). В настройках репозитория откройте **Settings → Pages** и выберите **GitHub Actions** в поле **Source**. Workflow проверяет проект и публикует содержимое `dist/` при запуске на ветке `main`.
+[Открыть канбан-доску на GitHub Pages](https://stepushkin33.github.io/kanban-board/).
+
+Workflow в [GitHub Actions](.github/workflows/pages.yml) проверяет проект и публикует содержимое `dist/` при обновлении ветки `main`.
 
 ## Макет
 
