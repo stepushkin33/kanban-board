@@ -1,0 +1,71 @@
+{
+  "name": "kanban-board",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=18.18.0"
+  },
+  "scripts": {
+    "start": "webpack serve --mode development",
+    "build": "npm run typecheck && webpack --mode production",
+    "typecheck": "tsc --noEmit",
+    "lint": "npm run lint:eslint && npm run lint:styles && npm run typecheck",
+    "lint:eslint": "eslint . --max-warnings=0",
+    "lint:styles": "stylelint \"src/**/*.css\" --max-warnings=0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "node scripts/run-tests.mjs",
+    "check": "npm run format:check && npm run lint && npm run test"
+  },
+  "dependencies": {
+    "@dnd-kit/core": "6.3.1",
+    "@fontsource-variable/inter": "5.2.8",
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.35.0",
+    "@testing-library/react": "16.3.0",
+    "@types/jsdom": "21.1.7",
+    "@types/node": "18.19.130",
+    "@types/react": "19.1.13",
+    "@types/react-dom": "19.1.9",
+    "css-loader": "7.1.2",
+    "eslint": "9.35.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-react-hooks": "5.2.0",
+    "globals": "16.4.0",
+    "html-webpack-plugin": "5.6.6",
+    "jsdom": "26.1.0",
+    "mini-css-extract-plugin": "2.9.4",
+    "prettier": "3.6.2",
+    "style-loader": "4.0.0",
+    "stylelint": "16.24.0",
+    "stylelint-config-standard": "38.0.0",
+    "ts-loader": "9.5.4",
+    "tsx": "4.23.15",
+    "typescript": "5.8.3",
+    "typescript-eslint": "8.73.0",
+    "webpack": "5.105.4",
+    "webpack-cli": "5.1.4",
+    "webpack-dev-server": "5.2.7"
+  },
+  "overrides": {
+    "webpack-dev-server": {
+      "selfsigned": "4.0.0"
+    },
+    "stylelint": {
+      "flat-cache": "6.1.13"
+    },
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "9.0.9"
+    },
+    "@typescript-eslint/visitor-keys": {
+      "eslint-visitor-keys": "4.2.1"
+    },
+    "sockjs": {
+      "uuid": "11.1.1"
+    }
+  }
+}
