@@ -9,10 +9,9 @@ const initialTasks = taskListSchema.parse(seedTasks)
 
 export function useTasks() {
   const [tasks, setTasks] = useState(() => readTasks(initialTasks))
-  const [storageAvailable, setStorageAvailable] = useState(true)
 
   useEffect(() => {
-    setStorageAvailable(writeTasks(tasks))
+    writeTasks(tasks)
   }, [tasks])
 
   function add(fields: TaskFields) {
@@ -37,5 +36,5 @@ export function useTasks() {
     setTasks((current) => placeTask(current, id, drop))
   }
 
-  return { tasks, add, edit, remove, move, storageAvailable }
+  return { tasks, add, edit, remove, move }
 }
