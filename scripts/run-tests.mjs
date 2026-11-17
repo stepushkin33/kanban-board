@@ -12,6 +12,9 @@ if (testFiles.length === 0) throw new Error('No test files found')
 
 // Node 18.18 uses the loader flag, while newer runtimes register the loader during import.
 const loaderFlag = typeof nodeModule.register === 'function' ? '--import' : '--loader'
-const run = spawnSync(process.execPath, [loaderFlag, 'tsx', '--test', ...testFiles], { stdio: 'inherit' })
+const stylesLoader = new URL('./scss-test-loader.mjs', import.meta.url).href
+const run = spawnSync(process.execPath, [loaderFlag, 'tsx', '--loader', stylesLoader, '--test', ...testFiles], {
+  stdio: 'inherit',
+})
 if (run.error) throw run.error
 process.exitCode = run.status ?? 1

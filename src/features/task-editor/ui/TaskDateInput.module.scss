@@ -1,0 +1,32 @@
+.input {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 200px;
+  padding: 1px 9px;
+  border: 1px solid var(--control-border);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--control-text);
+  font: inherit;
+  font-weight: 650;
+}
+
+.input::placeholder {
+  color: var(--control-muted);
+}
+
+.input:hover,
+.input:focus {
+  border-color: var(--control-accent);
+  outline: none;
+}
+
+.input[aria-invalid='true'] {
+  border-color: var(--danger);
+}
+
+@container (width <= 240px) {
+  .input {
+    width: 100%;
+  }
+}

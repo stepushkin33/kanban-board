@@ -1,0 +1,83 @@
+.root {
+  --column-padding: clamp(8px, 0.833vw, 16px);
+
+  container-type: inline-size;
+  min-height: 112px;
+  padding: calc(2 * var(--column-padding)) var(--column-padding);
+  border-radius: 4px;
+  background: rgb(5 7 10 / 78%);
+  transition:
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+
+.root[data-over='true'] {
+  background: rgb(13 22 36 / 92%);
+  box-shadow: inset 0 0 0 2px rgb(184 217 255 / 75%);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  min-height: 28px;
+  margin: 0 0 var(--column-padding);
+}
+
+.header h2 {
+  display: flex;
+  align-items: center;
+  gap: clamp(5px, 0.42vw, 8px);
+  margin: 0;
+  font-size: clamp(15px, 1.25vw, 24px);
+  line-height: 1.2;
+}
+
+.header svg {
+  flex: 0 0 auto;
+  width: clamp(16px, 1.25vw, 24px);
+  height: auto;
+}
+
+.add {
+  min-height: 28px;
+  padding: 0 2px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--control-muted);
+  font-size: clamp(11px, 0.729vw, 14px);
+  white-space: nowrap;
+}
+
+.add:is(:hover, :active):not([aria-disabled='true']) {
+  color: var(--control-accent);
+}
+
+.add[aria-disabled='true'] {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.tasks {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--column-padding);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.empty {
+  margin: 0;
+  padding: 12px 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root {
+    transition: none;
+  }
+}

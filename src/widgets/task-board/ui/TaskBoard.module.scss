@@ -1,0 +1,10 @@
+.board {
+  display: grid;
+  grid-auto-columns: minmax(min(100%, 272px), 1fr);
+  grid-auto-flow: column;
+  align-items: start;
+  gap: var(--layout-gutter);
+  overflow-x: auto;
+  padding: 0 0 8px;
+  overscroll-behavior-inline: contain;
+}

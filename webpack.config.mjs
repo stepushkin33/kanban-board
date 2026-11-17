@@ -1,12 +1,13 @@
 import { fileURLToPath } from 'node:url'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import { PrecachePlugin } from './scripts/precache-plugin.mjs'
 
 export default (_, { mode }) => {
   const isProduction = mode === 'production'
 
   return {
-    entry: './src/main.tsx',
+    entry: './src/app/index.tsx',
     output: {
       path: fileURLToPath(new URL('./dist', import.meta.url)),
       filename: isProduction ? 'assets/[name].[contenthash:8].js' : 'assets/[name].js',
@@ -15,20 +16,38 @@ export default (_, { mode }) => {
       clean: true,
     },
     devtool: isProduction ? false : 'eval-cheap-module-source-map',
-    resolve: { extensions: ['.tsx', '.ts', '.js'] },
+    resolve: { extensions: ['.tsx', '.ts', '.js'], tsconfig: true },
     module: {
       rules: [
         { test: /\.tsx?$/, exclude: /node_modules/, loader: 'ts-loader', options: { transpileOnly: true } },
-        { test: /\.css$/i, use: [isProduction ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader'] },
+        {
+          test: /\.scss$/i,
+          use: [
+            isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                modules: {
+                  auto: /\.module\.scss$/i,
+                  namedExport: false,
+                  localIdentName: isProduction ? '[hash:base64:8]' : '[name]__[local]__[hash:base64:5]',
+                },
+              },
+            },
+            { loader: 'sass-loader', options: { api: 'modern' } },
+          ],
+        },
         { test: /\.(?:webp|avif|jpe?g|png|woff2)$/i, type: 'asset/resource' },
       ],
     },
     plugins: [
-      new HtmlWebpackPlugin({ template: './public/index.html' }),
-      ...(isProduction ? [new MiniCssExtractPlugin({ filename: 'assets/[name].[contenthash:8].css' })] : []),
+      new HtmlWebpackPlugin({ template: './public/index.html', favicon: './public/favicon.svg' }),
+      ...(isProduction
+        ? [new MiniCssExtractPlugin({ filename: 'assets/[name].[contenthash:8].css' }), new PrecachePlugin()]
+        : []),
     ],
     devServer: {
-      host: '127.0.0.1',
+      host: 'localhost',
       port: 8080,
       static: false,
     },
